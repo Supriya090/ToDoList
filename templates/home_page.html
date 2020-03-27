@@ -1,0 +1,63 @@
+{% extends 'bootstrap/base.html' %}
+{% block content1 %}
+{% import "bootstrap/wtf.html" as wtf %}
+Homepage
+{% endblock %}
+
+{% block content %}
+<div>
+<center>
+<form method="post">
+    <legend><font face = 'cursive' size = 6 color = "gray">Add To-do Task</font></legend>
+    {{ form.csrf_token }}
+    <font face = 'cursive' size = 4 color="gray">
+    {{ form.title.label }}
+    {{ form.title }}
+        &emsp;&emsp;
+        {{ form.done }}
+    {{ form.done.label }}
+        &emsp;&emsp;
+        <button type="submit" class="btn btn-secondary">Add</button>
+    </font>
+</form>
+</center>
+<style>
+p {
+    color: violet;
+    font-size : 200%;
+    text-indent : 5%
+}
+.center
+{
+ text-align: center;
+ list-style-position: inside;
+}
+ol.center li
+{
+ text-align: left;
+ margin-left: 1%;
+}
+div {
+  backgrounbd
+}
+</style>
+<br>
+<font face = 'cursive' color = 'violet'><p> My To-do-list</p></font>
+
+<ol class="center">
+    {% for todo in todo_list %}
+    <font size = 4 face = 'cursive'>
+    <li style = "padding:5px;">
+        {% if todo['Done'] %}<strike>{% endif %}
+        {{ todo['Title'] }}
+        {% if todo['Done'] %}</strike>{% endif %}
+        &emsp;&emsp;&emsp;&emsp;
+        <a href="{{ url_for ('delete', index = todo['_id'])}}">
+            <button type="button" class="btn btn-light">Delete</button>
+        </a>
+    </li>
+    </font>
+    {% endfor %}
+</ol>
+</div>
+    {% endblock %}
